@@ -2676,7 +2676,7 @@ dump_registers_for_compressed_kdump(void)
 			continue;
 		} else
 			fprintf(fp, "%sCPU %d:\n", c ? "\n" : "", c);
-		diskdump_display_regs(c, fp);
+		display_regs_from_elf_notes(c, fp);
 	}
 }
 

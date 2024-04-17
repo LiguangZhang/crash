@@ -2769,7 +2769,7 @@ display_regs_from_elf_notes(int cpu, FILE *ofp)
 	}
 
 	if ((cpu - skipped_count) >= nd->num_prstatus_notes &&
-	     !machine_type("MIPS")) {
+	     !(machine_type("MIPS") || machine_type("RISCV64"))) {
 		error(INFO, "registers not collected for cpu %d\n", cpu);
 		return;
 	}
@@ -3440,7 +3440,7 @@ struct riscv64_elf_prstatus {
     struct timeval pr_cutime;
     struct timeval pr_cstime;
 /*  elf_gregset_t pr_reg; => typedef struct user_regs_struct elf_gregset_t; */
-    unsigned long pr_reg[32];
+    unsigned long pr_reg[36];
     int pr_fpvalid;
 };
 
@@ -3481,7 +3481,8 @@ display_prstatus_riscv64(void *note_ptr, FILE *ofp)
 		"%s s5: %016lx   s6: %016lx   s7: %016lx\n"
 		"%s s8: %016lx   s9: %016lx  s10: %016lx\n"
 		"%ss11: %016lx   t3: %016lx   t4: %016lx\n"
-		"%s t5: %016lx   t6: %016lx\n",
+		"%s t5: %016lx   t6: %016lx\n"
+		"%sstatus: %016lx   badaddr: %016lx   cause: %016lx\n",
 		space(sp), pr->pr_reg[0], pr->pr_reg[1], pr->pr_reg[2],
 		space(sp), pr->pr_reg[3], pr->pr_reg[4], pr->pr_reg[5],
 		space(sp), pr->pr_reg[6], pr->pr_reg[7], pr->pr_reg[8],
@@ -3492,7 +3493,8 @@ display_prstatus_riscv64(void *note_ptr, FILE *ofp)
 		space(sp), pr->pr_reg[21], pr->pr_reg[22], pr->pr_reg[23],
 		space(sp), pr->pr_reg[24], pr->pr_reg[25], pr->pr_reg[26],
 		space(sp), pr->pr_reg[27], pr->pr_reg[28], pr->pr_reg[29],
-		space(sp), pr->pr_reg[30], pr->pr_reg[31]);
+		space(sp), pr->pr_reg[30], pr->pr_reg[31],
+		space(sp), pr->pr_reg[32], pr->pr_reg[33], pr->pr_reg[34]);
 }
 
 void

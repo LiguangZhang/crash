@@ -1745,7 +1745,8 @@ riscv64_dump_pt_regs(struct riscv64_register *regs, FILE *ofp, bool pt_regs)
 		" s5 : " REG_FMT " s6 : " REG_FMT " s7 : " REG_FMT "\n"
 		" s8 : " REG_FMT " s9 : " REG_FMT " s10: " REG_FMT "\n"
 		" s11: " REG_FMT " t3 : " REG_FMT " t4 : " REG_FMT "\n"
-		" t5 : " REG_FMT " t6 : " REG_FMT "\n",
+		" t5 : " REG_FMT " t6 : " REG_FMT "\n"
+		" status: " REG_FMT " badaddr : " REG_FMT " cause : " REG_FMT "\n",
 		regs->regs[0],  regs->regs[1],  regs->regs[2],
 		regs->regs[3],  regs->regs[4],  regs->regs[5],
 		regs->regs[6],  regs->regs[7],  regs->regs[8],
@@ -1756,7 +1757,8 @@ riscv64_dump_pt_regs(struct riscv64_register *regs, FILE *ofp, bool pt_regs)
 		regs->regs[21], regs->regs[22], regs->regs[23],
 		regs->regs[24], regs->regs[25], regs->regs[26],
 		regs->regs[27], regs->regs[28], regs->regs[29],
-		regs->regs[30], regs->regs[31]);
+		regs->regs[30], regs->regs[31],
+		regs->regs[32], regs->regs[33], regs->regs[34]);
 
 	if (pt_regs)
 		fprintf(ofp,
